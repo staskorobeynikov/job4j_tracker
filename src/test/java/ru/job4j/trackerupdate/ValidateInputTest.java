@@ -19,7 +19,7 @@ public class ValidateInputTest {
     }
 
     @Test
-    public void whenInvalidInput1() {
+    public void whenInvalidInputTestOutString() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"one", "1"}
