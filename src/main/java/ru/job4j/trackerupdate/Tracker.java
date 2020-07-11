@@ -3,7 +3,7 @@ package ru.job4j.trackerupdate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tracker {
+public class Tracker implements Store {
 
     private final List<Item> items = new ArrayList<>();
 
@@ -14,7 +14,7 @@ public class Tracker {
         items.add(item);
         return item;
     }
-
+    @Override
     public List<Item> findAll() {
         return items;
     }
@@ -23,7 +23,7 @@ public class Tracker {
         int index = indexOf(id);
         return index != -1 ? items.get(index) : null;
     }
-
+    @Override
     public List<Item> findByName(String key) {
         List<Item> result = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
@@ -34,7 +34,7 @@ public class Tracker {
         }
         return result;
     }
-
+    @Override
     public boolean replace(int id, Item item) {
         int index = indexOf(id);
         boolean result = index != -1;
@@ -44,7 +44,7 @@ public class Tracker {
         }
         return result;
     }
-
+    @Override
     public boolean delete(int id) {
         int index = indexOf(id);
         boolean result = index != -1;
