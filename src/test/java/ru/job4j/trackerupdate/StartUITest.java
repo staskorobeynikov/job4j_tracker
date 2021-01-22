@@ -1,5 +1,6 @@
 package ru.job4j.trackerupdate;
 
+import org.junit.After;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,13 +11,18 @@ import static org.junit.Assert.*;
 
 public class StartUITest {
 
+    @After
+    public void tearDown() {
+        Tracker.getInstance().clear();
+    }
+
     @Test
     public void whenExit() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"0"}
         );
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         List<UserAction> actions = List.of(
                 new ExitAction(out)
         );
@@ -34,7 +40,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"100", "0"}
         );
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         List<UserAction> actions = List.of(
                 new ExitAction(out)
         );
@@ -57,7 +63,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"-100", "0"}
         );
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         List<UserAction> actions = List.of(
                 new ExitAction(out)
         );
@@ -80,7 +86,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", "Item name", "1"}
         );
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         List<UserAction> actions = List.of(
                 new CreateAction(out),
                 new ExitAction(out)
@@ -95,7 +101,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", "Item name", "1"}
         );
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         List<UserAction> actions = List.of(
                 new CreateAction(out),
                 new ExitAction(out)
@@ -116,7 +122,7 @@ public class StartUITest {
     @Test
     public void whenReplaceItem() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         Item item = tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         Input in = new StubInput(
@@ -133,7 +139,7 @@ public class StartUITest {
     @Test
     public void whenReplaceItemTestOutputFirstVar() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         Item item = tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         Input in = new StubInput(
@@ -158,7 +164,7 @@ public class StartUITest {
     @Test
     public void whenReplaceItemTestOutputSecondVar() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         Input in = new StubInput(
@@ -183,7 +189,7 @@ public class StartUITest {
     @Test
     public void whenDeleteItem() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         Item item = tracker.add(new Item("Deleted item"));
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
@@ -199,7 +205,7 @@ public class StartUITest {
     @Test
     public void whenDeleteItemTestOutputFirstVar() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         Item item = tracker.add(new Item("Deleted item"));
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
@@ -223,7 +229,7 @@ public class StartUITest {
     @Test
     public void whenDeleteItemTestOutputSecondVar() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         tracker.add(new Item("Deleted item"));
         Input in = new StubInput(
                 new String[] {"0", "1000", "1"}
@@ -247,8 +253,8 @@ public class StartUITest {
     @Test
     public void whenFindAllItemsFirstVar() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
-        tracker.add(new Item("New Item"));
+        Tracker tracker = Tracker.getInstance();
+        Item item = tracker.add(new Item("New Item"));
         Input in = new StubInput(
                 new String[] {"0", "1"}
         );
@@ -261,7 +267,7 @@ public class StartUITest {
                 + "0. Show All Items" + System.lineSeparator()
                 + "1. Exit" + System.lineSeparator()
                 + "=== Show All Items ===" + System.lineSeparator()
-                + "Item: id=1, name=New Item" + System.lineSeparator()
+                + item + System.lineSeparator()
                 + "Menu." + System.lineSeparator()
                 + "0. Show All Items" + System.lineSeparator()
                 + "1. Exit" + System.lineSeparator()
@@ -271,7 +277,7 @@ public class StartUITest {
     @Test
     public void whenFindAllItemsSecondVar() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         Input in = new StubInput(
                 new String[] {"0", "1"}
         );
@@ -294,8 +300,8 @@ public class StartUITest {
     @Test
     public void whenFindByNameItemsFirstVar() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
-        tracker.add(new Item("New Item"));
+        Tracker tracker = Tracker.getInstance();
+        Item item = tracker.add(new Item("New Item"));
         Input in = new StubInput(
                 new String[] {"0", "New Item", "1"}
         );
@@ -308,7 +314,7 @@ public class StartUITest {
                 + "0. Find item By Name" + System.lineSeparator()
                 + "1. Exit" + System.lineSeparator()
                 + "=== Find item By Name ===" + System.lineSeparator()
-                + "Item: id=1, name=New Item" + System.lineSeparator()
+                + item + System.lineSeparator()
                 + "Menu." + System.lineSeparator()
                 + "0. Find item By Name" + System.lineSeparator()
                 + "1. Exit" + System.lineSeparator()
@@ -318,7 +324,7 @@ public class StartUITest {
     @Test
     public void whenFindByNameItemsSecondVar() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         tracker.add(new Item("New Item"));
         Input in = new StubInput(
                 new String[] {"0", "Find Item", "1"}
@@ -342,7 +348,7 @@ public class StartUITest {
     @Test
     public void whenFindByIdItemsFirstVar() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         Item item = tracker.add(new Item("New Item"));
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
@@ -356,7 +362,7 @@ public class StartUITest {
                 + "0. Find Item By ID" + System.lineSeparator()
                 + "1. Exit" + System.lineSeparator()
                 + "=== Find Item By ID ===" + System.lineSeparator()
-                + "Item: id=1, name=New Item" + System.lineSeparator()
+                + item + System.lineSeparator()
                 + "Menu." + System.lineSeparator()
                 + "0. Find Item By ID" + System.lineSeparator()
                 + "1. Exit" + System.lineSeparator()
@@ -366,7 +372,7 @@ public class StartUITest {
     @Test
     public void whenFindByIdItemsSecondVar() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         tracker.add(new Item("New Item"));
         Input in = new StubInput(
                 new String[] {"0", "1000", "1"}

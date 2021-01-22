@@ -1,6 +1,8 @@
-package ru.job4j.trackerupdate;
+package ru.job4j.tracker.singleton;
 
-public enum  SingletonVersionOne {
+import ru.job4j.tracker.Tracker;
+
+public enum VersionOne {
     INSTANCE;
 
     private Tracker tracker = new Tracker();

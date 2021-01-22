@@ -1,5 +1,6 @@
 package ru.job4j.trackerupdate;
 
+import org.junit.After;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,9 +11,14 @@ import static org.junit.Assert.*;
 
 public class TrackerTest {
 
+    @After
+    public void tearDown() {
+        Tracker.getInstance().clear();
+    }
+
     @Test
     public void whenTestMethodFindById() {
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         Item item = new Item("test");
         tracker.add(item);
         Item byId = tracker.findById(item.getId());
@@ -21,7 +27,7 @@ public class TrackerTest {
 
     @Test
     public void whenTestMethodFindAll() {
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         tracker.add(new Item("test"));
         tracker.add(new Item("test1"));
         tracker.add(new Item("test2"));
@@ -32,7 +38,7 @@ public class TrackerTest {
 
     @Test
     public void whenTestMethodFindByName() {
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         tracker.add(new Item("test"));
         tracker.add(new Item("test1"));
         tracker.add(new Item("test2"));
@@ -42,7 +48,7 @@ public class TrackerTest {
 
     @Test
     public void whenReplace() {
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         Item bug = new Item("Bug");
         tracker.add(bug);
         int id = bug.getId();
@@ -53,7 +59,7 @@ public class TrackerTest {
 
     @Test
     public void whenDelete() {
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
         Item bug = new Item("Bug");
         tracker.add(bug);
         int id = bug.getId();

@@ -1,5 +1,6 @@
 package ru.job4j.trackerupdate;
 
+import org.junit.After;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -9,10 +10,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class CreateActionTest {
+
+    @After
+    public void tearDown() {
+        Tracker.getInstance().clear();
+    }
+
     @Test
     public void execute() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Tracker tracker = Tracker.getInstance();
 
         Input input = mock(Input.class);
         CreateAction create = new CreateAction(out);

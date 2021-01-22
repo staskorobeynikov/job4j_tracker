@@ -5,6 +5,18 @@ import java.util.List;
 
 public class Tracker implements Store {
 
+    private static Tracker instance = null;
+
+    public static Tracker getInstance() {
+        if (instance == null) {
+            instance = new Tracker();
+        }
+        return instance;
+    }
+
+    private Tracker() {
+    }
+
     private final List<Item> items = new ArrayList<>();
 
     private int ids = 1;
@@ -26,8 +38,7 @@ public class Tracker implements Store {
     @Override
     public List<Item> findByName(String key) {
         List<Item> result = new ArrayList<>();
-        for (int i = 0; i < items.size(); i++) {
-            Item item = items.get(i);
+        for (Item item : items) {
             if (item.getName().equals(key)) {
                 result.add(item);
             }
@@ -63,5 +74,9 @@ public class Tracker implements Store {
             }
         }
         return result;
+    }
+
+    public void clear() {
+        items.clear();
     }
 }
