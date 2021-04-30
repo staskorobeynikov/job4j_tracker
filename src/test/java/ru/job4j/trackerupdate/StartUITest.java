@@ -45,16 +45,16 @@ public class StartUITest {
                 new ExitAction(out)
         );
         new StartUI(out).init(in, tracker, actions);
+        String ln = System.lineSeparator();
         assertThat(out.toString(), is(
-                String.format(
-                        "Menu.%n"
-                                + "0. Exit%n"
-                                + "Wrong input, you can select: 0 .. 0%n"
-                                + "Menu.%n"
-                                + "0. Exit%n"
-                                + "=== Exit Program ===%n"
+                "Menu." + ln
+                        + "0. Exit" + ln
+                        + "Wrong input, you can select: 0 .. 0" + ln
+                        + "Menu." + ln
+                        + "0. Exit" + ln
+                        + "=== Exit Program ===" + ln
                 )
-        ));
+        );
     }
 
     @Test
